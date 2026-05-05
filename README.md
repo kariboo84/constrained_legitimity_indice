@@ -1,4 +1,4 @@
-# constrained_legitimity_indice
+# constrained_legitimacy_indice
 meta-manifeste pour un indice de légitimité constrainte.
 
 
