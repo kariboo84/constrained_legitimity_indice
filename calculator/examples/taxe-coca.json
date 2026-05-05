@@ -1,0 +1,16 @@
+{
+  "name": "Taxe sur la production plastique (Coca-Cola)",
+  "family": "ilc-eg",
+  "Rc": 14.2,
+  "Rc_explain": "Industrie = 71% du problème plastique. État protecteur = ~5%. 0.71 / 0.05 = 14.2",
+  "Sp": 2.2e-06,
+  "Sp_explain": "Participation réelle 0.00085% / attendue 0.01% = 0.085. (1800/7000) × 0.085 = 0.000022",
+  "Rr": 0.5,
+  "Rr_explain": "Députés actionnaires se désistent partiellement. Coût réel député médian / coût citoyen médian = 0.5",
+  "Ci": 0.05,
+  "Ci_explain": "Prix plafonnés, léger surcoût possible. ~5% du revenu annuel.",
+  "Vc": 0.75,
+  "l": 1,
+  "manifestBias": "egalitarian",
+  "notes": "Loi parfaite sur le fond mais processus verrouillé (Sp proche de 0)"
+}

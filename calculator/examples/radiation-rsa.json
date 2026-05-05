@@ -1,0 +1,16 @@
+{
+  "name": "Radiation RSA — Contrôles France Travail",
+  "family": "ilc-eg",
+  "Rc": 0.03,
+  "Rc_explain": "Allocataire = niveau 1 (utilise l'aide). État créateur de précarité = niveau 3. 0.03 / (0.90×2) = 0.017 → arrondi 0.03",
+  "Sp": 1e-06,
+  "Sp_explain": "Aucune consultation des concernés. Processus totalement top-down.",
+  "Rr": 0.0,
+  "Rr_explain": "Députés et hauts fonctionnaires jamais au RSA. Exemption totale.",
+  "Ci": 0.45,
+  "Ci_explain": "Perte de revenu vital (600€/mois) + démarches + risque de perte de logement. ~45% du revenu disponible.",
+  "Vc": 0.75,
+  "l": 1,
+  "manifestBias": "egalitarian",
+  "notes": "97% des radiés ne fraudent pas (DARES 2025). 28% basculent au RSA après radiation."
+}

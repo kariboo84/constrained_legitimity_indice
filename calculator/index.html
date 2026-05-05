@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ILC Calculator — Indice de Légitimité Contrainte</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔧 ILC Calculator</h1>
+      <div class="subtitle">Calculateur d'Indice de Légitimité Contrainte</div>
+      <div class="version">v0.1.0-alpha</div>
+    </header>
+
+    <!-- SECTION : Choix de l'exemple -->
+    <div class="section">
+      <div class="section-title"><span class="icon">📚</span> Exemples pré-remplis</div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="loadExample('telephone-volant')">📱 Téléphone au volant</button>
+        <button class="btn btn-secondary" onclick="loadExample('taxe-coca')">🥤 Taxe Coca-Cola</button>
+        <button class="btn btn-secondary" onclick="loadExample('radiation-rsa')">📋 Radiation RSA</button>
+        <button class="btn btn-secondary" onclick="resetForm()">🔄 Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- SECTION : Paramètres généraux -->
+    <div class="section">
+      <div class="section-title"><span class="icon">⚙️</span> Configuration</div>
+
+      <label for="family">Famille d'indice</label>
+      <select id="family" onchange="onFamilyChange()">
+        <option value="ilc-eg">ILC-ÉG — Égalitarisme</option>
+        <option value="ilc-lb">ILC-LB — Liberté de marché</option>
+        <option value="ilc-ut">ILC-UT — Utilitarisme collectif</option>
+      </select>
+      <div class="help-text">Chaque famille porte son biais en bandoulière. Voir le méta-manifeste.</div>
+
+      <label for="manifestBias">Biais du Manifeste de Valeurs</label>
+      <select id="manifestBias">
+        <option value="egalitarian">Égalitarisme</option>
+        <option value="libertarian">Libertarianisme</option>
+        <option value="utilitarian">Utilitarisme</option>
+      </select>
+
+      <div class="input-row">
+        <div>
+          <label for="Vc">Verrouillage Constitutionnel (Vc)</label>
+          <input type="number" id="Vc" step="0.01" min="0" max="1" value="0.75" placeholder="0.75">
+          <div class="help-text">0 = Constitution ouverte, 1 = totalement verrouillée</div>
+        </div>
+        <div>
+          <label for="l">Conformité constitutionnelle (l)</label>
+          <select id="l">
+            <option value="1">1 — Conforme</option>
+            <option value="0">0 — Anticonstitutionnelle</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION : Variables ILC-ÉG -->
+    <div id="panel-ilc-eg" class="section">
+      <div class="section-title"><span class="icon">📐</span> Variables ILC-ÉG</div>
+
+      <label for="Rc">Responsabilité Causale (Rc)</label>
+      <input type="number" id="Rc" step="any" placeholder="ex: 0.075">
+      <div class="help-text">Part du problème causée par le ciblé / Part causée par les décideurs protégés</div>
+      <div id="explain-Rc" class="explain-box hidden"></div>
+
+      <label for="Sp">Symétrie du Pouvoir (Sp)</label>
+      <input type="number" id="Sp" step="any" placeholder="ex: 0.218">
+      <div class="help-text">(Revenu concernés / Revenu décideurs) × (Participation réelle / Attendue)</div>
+      <div id="explain-Sp" class="explain-box hidden"></div>
+
+      <label for="Rr">Réciprocité (Rr)</label>
+      <input type="number" id="Rr" step="any" min="0" max="1" placeholder="ex: 0.0">
+      <div class="help-text">Coût réel subi par le décideur médian / Coût subi par le concerné médian</div>
+      <div id="explain-Rr" class="explain-box hidden"></div>
+
+      <label for="Ci">Contrainte Individuelle (Ci)</label>
+      <input type="number" id="Ci" step="any" placeholder="ex: 0.28">
+      <div class="help-text">Coût total (€ + heures + risques) / Revenu disponible annuel</div>
+      <div id="explain-Ci" class="explain-box hidden"></div>
+    </div>
+
+    <!-- SECTION : Variables ILC-LB (caché par défaut) -->
+    <div id="panel-ilc-lb" class="section hidden">
+      <div class="section-title"><span class="icon">📐</span> Variables ILC-LB</div>
+
+      <label for="Ci-lb">Contrainte Individuelle (Ci)</label>
+      <input type="number" id="Ci-lb" step="any" placeholder="ex: 0.15">
+      <div class="help-text">Contrainte fiscale et réglementaire sur l'individu</div>
+
+      <label for="De">Degré d'ingérence étatique (De)</label>
+      <input type="number" id="De" step="any" min="0" placeholder="ex: 2.5">
+      <div class="help-text">1 = intervention totale, 0 = aucune</div>
+    </div>
+
+    <!-- SECTION : Variables ILC-UT (caché par défaut) -->
+    <div id="panel-ilc-ut" class="section hidden">
+      <div class="section-title"><span class="icon">📐</span> Variables ILC-UT</div>
+
+      <label for="B">Bénéfices collectifs (B)</label>
+      <input type="number" id="B" step="any" placeholder="ex: 150000000">
+      <div class="help-text">En euros ou en DALY/QALY</div>
+
+      <label for="C">Coûts collectifs (C)</label>
+      <input type="number" id="C" step="any" placeholder="ex: 50000000">
+      <div class="help-text">Coûts directs de la mesure</div>
+
+      <label for="Cmax">Coût max individuel (Cmax)</label>
+      <input type="number" id="Cmax" step="any" placeholder="ex: 50000">
+      <div class="help-text">Coût supporté par l'individu le plus lésé</div>
+    </div>
+
+    <!-- BOUTON CALCULER -->
+    <div class="btn-group">
+      <button class="btn" onclick="calculate()">🧮 Calculer l'ILC</button>
+    </div>
+
+    <!-- SECTION : Résultats -->
+    <div id="results" class="section hidden">
+      <div class="section-title"><span class="icon">📊</span> Résultats</div>
+
+      <div id="verdict-badge" class="verdict-badge"></div>
+
+      <div class="detail-row">
+        <span class="detail-label">Famille utilisée</span>
+        <span class="detail-value" id="res-family"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">ILC brut</span>
+        <span class="detail-value" id="res-ilc-brut"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Filtre Constitutionnel (Fc)</span>
+        <span class="detail-value" id="res-fc"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">ILC final</span>
+        <span class="detail-value" id="res-ilc-final" style="font-size:1.3rem;font-weight:700;"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Verdict</span>
+        <span class="detail-value" id="res-verdict"></span>
+      </div>
+
+      <div id="bs-panel"></div>
+    </div>
+
+    <footer>
+      <p>ILC Calculator — <a href="https://github.com/kariboo84/constrained_legitimacy_indice" target="_blank">GitHub</a></p>
+      <p style="margin-top:0.3rem;">Licence code : AGPL-3.0 · Licence textes : CC-BY-SA-4.0</p>
+    </footer>
+  </div>
+
+  <script src="js/ilc-calculator.js"></script>
+  <script>
+    // Affichage/masquage des panels selon la famille
+    function onFamilyChange() {
+      const fam = document.getElementById('family').value;
+      ['ilc-eg', 'ilc-lb', 'ilc-ut'].forEach(f => {
+        document.getElementById('panel-' + f).classList.toggle('hidden', f !== fam);
+      });
+    }
+
+    // Chargement d'un exemple
+    function loadExample(key) {
+      const ex = ILCCalculator.examples[key];
+      if (!ex) return;
+
+      document.getElementById('family').value = ex.family;
+      onFamilyChange();
+      document.getElementById('manifestBias').value = ex.manifestBias;
+      document.getElementById('Vc').value = ex.Vc;
+      document.getElementById('l').value = ex.l;
+
+      if (ex.family === 'ilc-eg') {
+        document.getElementById('Rc').value = ex.Rc;
+        document.getElementById('Sp').value = ex.Sp;
+        document.getElementById('Rr').value = ex.Rr;
+        document.getElementById('Ci').value = ex.Ci;
+
+        showExplain('Rc', ex.Rc_explain);
+        showExplain('Sp', ex.Sp_explain);
+        showExplain('Rr', ex.Rr_explain);
+        showExplain('Ci', ex.Ci_explain);
+      }
+
+      calculate();
+    }
+
+    function showExplain(id, text) {
+      const el = document.getElementById('explain-' + id);
+      el.textContent = text;
+      el.classList.remove('hidden');
+    }
+
+    function hideExplains() {
+      ['Rc', 'Sp', 'Rr', 'Ci'].forEach(id => {
+        document.getElementById('explain-' + id).classList.add('hidden');
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('Rc').value = '';
+      document.getElementById('Sp').value = '';
+      document.getElementById('Rr').value = '';
+      document.getElementById('Ci').value = '';
+      document.getElementById('Ci-lb').value = '';
+      document.getElementById('De').value = '';
+      document.getElementById('B').value = '';
+      document.getElementById('C').value = '';
+      document.getElementById('Cmax').value = '';
+      document.getElementById('results').classList.add('hidden');
+      hideExplains();
+    }
+
+    // Calcul principal
+    function calculate() {
+      const family = document.getElementById('family').value;
+      const manifestBias = document.getElementById('manifestBias').value;
+      const Vc = parseFloat(document.getElementById('Vc').value) || 0;
+      const l = parseInt(document.getElementById('l').value);
+
+      let inputs = { manifestBias, Vc, l };
+
+      if (family === 'ilc-eg') {
+        inputs.Rc = parseFloat(document.getElementById('Rc').value) || 0;
+        inputs.Sp = parseFloat(document.getElementById('Sp').value) || 0;
+        inputs.Rr = parseFloat(document.getElementById('Rr').value) || 0;
+        inputs.Ci = parseFloat(document.getElementById('Ci').value) || 0;
+      } else if (family === 'ilc-lb') {
+        inputs.Ci = parseFloat(document.getElementById('Ci-lb').value) || 0;
+        inputs.De = parseFloat(document.getElementById('De').value) || 0;
+      } else if (family === 'ilc-ut') {
+        inputs.B = parseFloat(document.getElementById('B').value) || 0;
+        inputs.C = parseFloat(document.getElementById('C').value) || 0;
+        inputs.Cmax = parseFloat(document.getElementById('Cmax').value) || 0;
+      }
+
+      try {
+        const result = ILCCalculator.calculate(family, inputs);
+        displayResults(result);
+      } catch (e) {
+        alert('Erreur de calcul : ' + e.message);
+      }
+    }
+
+    function displayResults(result) {
+      const resSection = document.getElementById('results');
+      resSection.classList.remove('hidden');
+
+      document.getElementById('res-family').textContent = result.family;
+      document.getElementById('res-ilc-brut').textContent = result.ilcBrut;
+      document.getElementById('res-fc').textContent = result.Fc;
+
+      const ilcFinalEl = document.getElementById('res-ilc-final');
+      ilcFinalEl.textContent = result.ilcFinal;
+      ilcFinalEl.className = 'detail-value ' + result.verdict;
+
+      document.getElementById('res-verdict').textContent = result.verdictLabel;
+
+      const badge = document.getElementById('verdict-badge');
+      badge.className = 'verdict-badge ' + result.verdict;
+      badge.textContent = result.verdict.toUpperCase();
+
+      // Détecteur de langue de bois
+      const bsPanel = document.getElementById('bs-panel');
+      if (!result.bs.valid) {
+        let html = '<div class="bs-warning"><h4>⚠️ Détecteur de Langue de Bois — ' + 
+                   Math.round(result.bs.Id * 100) + '% de contradictions</h4><ul>';
+        result.bs.messages.forEach(msg => {
+          html += '<li>' + msg + '</li>';
+        });
+        html += '</ul></div>';
+        bsPanel.innerHTML = html;
+      } else {
+        bsPanel.innerHTML = '<div class="bs-ok">✅ Cohérence Manifeste/Variables vérifiée (Id = ' + 
+                            result.bs.Id.toFixed(2) + ')</div>';
+      }
+
+      // Scroll vers résultats
+      resSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Init
+    onFamilyChange();
+  </script>
+</body>
+</html>
