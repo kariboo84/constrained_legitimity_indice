@@ -59,7 +59,7 @@ $$P_{\text{attendue}}(\epsilon) = \begin{cases} 0.05 & \text{si } \epsilon = \te
 
 ### 2.4 Variable $R_r$ — Réciprocité
 
-$$R_r = \frac{C_{\text{réel}}(\text{décideur\_médian})}{C_{\text{réel}}(\text{concerné\_médian})}$$
+$$R_r = \frac{C_{\text{réel}}(\text{décideur median})}{C_{\text{réel}}(\text{concerné median})}$$
 
 où $C_{\text{réel}}$ est le coût total pondéré :
 
@@ -97,11 +97,11 @@ où $\delta_j$ mesure l'ingérence sur le domaine $j$ et $w_j$ son poids relatif
 
 ### 4.1 Formule principale
 
-$$\text{ILC}_{\text{UT}} = \frac{B_{\text{collectif}} - C_{\text{collectif}}}{C_{\text{max\_individuel}}}$$
+$$\text{ILC}_{\text{UT}} = \frac{B_{\text{collectif}} - C_{\text{collectif}}}{C_{\text{max individuel}}}$$
 
 ### 4.2 Contrainte de frein moral
 
-$$\text{Si } \frac{C_{\text{max\_individuel}}}{R_{\text{médian}}} > 0.5 \text{ alors } \text{ILC}_{\text{UT}} = 0$$
+$$\text{Si } \frac{C_{\text{max individuel}}}{R_{\text{médian}}} > 0.5 \text{ alors } \text{ILC}_{\text{UT}} = 0$$
 
 ---
 
@@ -115,7 +115,7 @@ où $\mathbb{1}$ est la fonction indicatrice et $m$ le nombre total de règles d
 
 ### 5.2 Règles de cohérence pour ILC-ÉG
 
-$$\text{Si } \mathcal{V} = \text{égalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \end{cases}$$
+$$\text{Si } \mathcal{V} = \text{égalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \\ C_i > 0.3 & \Rightarrow \text{contradiction} \end{cases}$$
 
 ### 5.3 Verdict
 
