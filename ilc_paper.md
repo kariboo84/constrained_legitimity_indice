@@ -36,7 +36,7 @@ où :
 
 ### 2.1 Formule principale
 
-$$\text{ILC}_{\text{ÉG}} = \frac{R_c \cdot S_p \cdot R_r}{C_i} \cdot F_c$$
+$$\text{ILC}_{\text{EG}} = \frac{R_c \cdot S_p \cdot R_r}{C_i} \cdot F_c$$
 
 ### 2.2 Variable $R_c$ — Responsabilité Causale
 
@@ -51,23 +51,23 @@ $$\gamma_k = \begin{cases} 2 & \text{si acteur présent aux niveaux 1, 2 et 3} \
 
 ### 2.3 Variable $S_p$ — Symétrie du Pouvoir
 
-$$S_p = \left( \frac{R_{\text{concernés}}}{R_{\text{décideurs}}} \right) \cdot \left( \frac{P_{\text{réelle}}}{P_{\text{attendue}}(\epsilon)} \right)$$
+$$S_p = \left( \frac{R_{\text{concernes}}}{R_{\text{decideurs}}} \right) \cdot \left( \frac{P_{\text{reelle}}}{P_{\text{attendue}}(\epsilon)} \right)$$
 
 où $\epsilon$ est l'échelle de la décision :
 
-$$P_{\text{attendue}}(\epsilon) = \begin{cases} 0.05 & \text{si } \epsilon = \text{locale} \\ 0.005 & \text{si } \epsilon = \text{départementale} \\ 0.0001 & \text{si } \epsilon = \text{nationale} \\ 0.00001 & \text{si } \epsilon = \text{européenne} \end{cases}$$
+$$P_{\text{attendue}}(\epsilon) = \begin{cases} 0.05 & \text{si } \epsilon = \text{locale} \\ 0.005 & \text{si } \epsilon = \text{departementale} \\ 0.0001 & \text{si } \epsilon = \text{nationale} \\ 0.00001 & \text{si } \epsilon = \text{europeenne} \end{cases}$$
 
 ### 2.4 Variable $R_r$ — Réciprocité
 
-$$R_r = \frac{C_{\text{réel}}(\text{décideur median})}{C_{\text{réel}}(\text{concerné median})}$$
+$$R_r = \frac{C_{\text{reel}}(\text{decideur median})}{C_{\text{reel}}(\text{concerne median})}$$
 
-où $C_{\text{réel}}$ est le coût total pondéré :
+où $C_{\text{reel}}$ est le coût total pondéré :
 
-$$C_{\text{réel}} = c_{\text{monétaire}} + (h_{\text{perdues}} \cdot s_h) + (r_{\text{pénal}} \cdot p_{\text{contrôle}}) + (p_{\text{emploi}} \cdot c_{\text{perte}})$$
+$$C_{\text{reel}} = c_{\text{monetaire}} + (h_{\text{perdues}} \cdot s_h) + (r_{\text{penal}} \cdot p_{\text{controle}}) + (p_{\text{emploi}} \cdot c_{\text{perte}})$$
 
 ### 2.5 Variable $C_i$ — Contrainte Individuelle
 
-$$C_i = \frac{C_{\text{réel}}}{R_{\text{disponible}}}$$
+$$C_i = \frac{C_{\text{reel}}}{R_{\text{disponible}}}$$
 
 ### 2.6 Filtre Constitutionnel $F_c$
 
@@ -101,7 +101,7 @@ $$\text{ILC}_{\text{UT}} = \frac{B_{\text{collectif}} - C_{\text{collectif}}}{C_
 
 ### 4.2 Contrainte de frein moral
 
-$$\text{Si } \frac{C_{\text{max individuel}}}{R_{\text{médian}}} > 0.5 \text{ alors } \text{ILC}_{\text{UT}} = 0$$
+$$\text{Si } \frac{C_{\text{max individuel}}}{R_{\text{median}}} > 0.5 \text{ alors } \text{ILC}_{\text{UT}} = 0$$
 
 ---
 
@@ -115,11 +115,11 @@ où $\mathbb{1}$ est la fonction indicatrice et $m$ le nombre total de règles d
 
 ### 5.2 Règles de cohérence pour ILC-ÉG
 
-$$\text{Si } \mathcal{V} = \text{égalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \\ C_i > 0.3 & \Rightarrow \text{contradiction} \end{cases}$$
+$$\text{Si } \mathcal{V} = \text{egalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \\ C_i > 0.3 & \Rightarrow \text{contradiction} \end{cases}$$
 
 ### 5.3 Verdict
 
-$$\text{Validité} = \begin{cases} \text{INVALIDE} & \text{si } I_d > 0.30 \\ \text{VALIDE} & \text{si } I_d \leq 0.30 \end{cases}$$
+$$\text{Validite} = \begin{cases} \text{INVALIDE} & \text{si } I_d > 0.30 \\ \text{VALIDE} & \text{si } I_d \leq 0.30 \end{cases}$$
 
 ---
 
@@ -137,9 +137,9 @@ $$\text{ILC}(d) \leq 0.10 \quad \text{(plafonnement automatique)}$$
 |---|---|---|
 | Souffrance psychique | $\Delta_{\text{suicides}} > 2\sigma$ | Plafonnement |
 | Dignité bafouée | $h_{\text{humiliation}} > 0$ | $C_i \leftarrow 2 \cdot C_i$ |
-| Corruption d'intention | $\Omega_{\text{opacité}} > 0.7$ | $S_p \leftarrow S_p / 10$ |
+| Corruption d'intention | $\Omega_{\text{opacite}} > 0.7$ | $S_p \leftarrow S_p / 10$ |
 
-où $\Omega_{\text{opacité}}$ mesure la proportion de décisions non publiques.
+où $\Omega_{\text{opacite}}$ mesure la proportion de décisions non publiques.
 
 ---
 
@@ -166,7 +166,7 @@ Recalcul obligatoire avec la version active pour maintenir la comparabilité.
 
 ### 8.1 Ensemble des sources valides
 
-$$\mathcal{S}_{\text{valide}} = \{\text{INSEE}, \text{SPF}, \text{Cour des comptes}, \text{DARES}, \text{OCDE}, \text{IPCC}, \text{rapports d'audit indépendants}\}$$
+$$\mathcal{S}_{\text{valide}} = \{\text{INSEE}, \text{SPF}, \text{Cour des comptes}, \text{DARES}, \text{OCDE}, \text{IPCC}, \text{rapports d'audit independants}\}$$
 
 ### 8.2 Règle de contradiction
 
@@ -178,11 +178,11 @@ $$\text{Si } \exists s_1, s_2 \in \mathcal{S}_{\text{valide}} : s_1(d) \neq s_2(
 
 ### Axiome 1 : Bien premier ($\mathcal{B}$)
 
-$$\mathcal{B} \in \{\text{Égalité}, \text{Liberté}, \text{Efficacité}, \text{Souveraineté}\}$$
+$$\mathcal{B} \in \{\text{Egalite}, \text{Liberte}, \text{Efficacite}, \text{Souverainete}\}$$
 
 ### Axiome 2 : Agent moral ($\mathcal{A}$)
 
-$$\mathcal{A} \in \{\text{Individu vulnérable}, \text{Propriétaire}, \text{Écosystème}, \text{Nation}\}$$
+$$\mathcal{A} \in \{\text{Individu vulnerable}, \text{Proprietaire}, \text{Ecosysteme}, \text{Nation}\}$$
 
 ### Axiome 3 : Mesure de souffrance ($\mathcal{S}$)
 
@@ -190,11 +190,11 @@ $$\mathcal{S} : \mathbb{R}^n \rightarrow \mathbb{R}^+ \text{ (fonction de mesure
 
 ### Axiome 4 : Régime temporel ($\mathcal{T}$)
 
-$$\mathcal{T} = (\delta_{\text{présent}}, \delta_{\text{futur}}, \delta_{\text{passé}}) \in \mathbb{R}^3_+$$
+$$\mathcal{T} = (\delta_{\text{present}}, \delta_{\text{futur}}, \delta_{\text{passe}}) \in \mathbb{R}^3_+$$
 
 ### Axiome 5 : Seuil d'irréversibilité ($\mathcal{I}$)
 
-$$\mathcal{I} = \{ (p, q) \in \mathbb{N}^2 \mid p + q = 100, \text{ sacrifice de } p\% \text{ acceptable pour sauver } q\% \}$$
+$$\mathcal{I} = [ (p, q) \in \mathbb{N}^2 \mid p + q = 100, \text{ sacrifice de } p\% \text{ acceptable pour sauver } q\% ]$$
 
 ---
 
