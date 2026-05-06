@@ -194,7 +194,7 @@ $$\mathcal{T} = (\delta_{\text{présent}}, \delta_{\text{futur}}, \delta_{\text{
 
 ### Axiome 5 : Seuil d'irréversibilité ($\mathcal{I}$)
 
-$$\mathcal{I} = \left\{ (p, q) \in \mathbb{N}^2 : p + q = 100, \text{ sacrifice de } p\% \text{ acceptable pour sauver } q\% \right\}$$
+$$\mathcal{I} = \{ (p, q) \in \mathbb{N}^2 \mid p + q = 100, \text{ sacrifice de } p\% \text{ acceptable pour sauver } q\% \}$$
 
 ---
 
