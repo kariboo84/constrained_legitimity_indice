@@ -115,7 +115,7 @@ où $\mathbb{1}$ est la fonction indicatrice et $m$ le nombre total de règles d
 
 ### 5.2 Règles de cohérence pour ILC-ÉG
 
-$$\text{Si } \mathcal{V} = \text{égalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \\ C_i > 0.3 & \Rightarrow \text{contradiction} \end{cases}$$
+$$\text{Si } \mathcal{V} = \text{égalitarisme} \text{ alors } \begin{cases} R_r = 0 & \Rightarrow \text{contradiction} \\ S_p < 10^{-3} & \Rightarrow \text{contradiction} \\ R_c < 0.1 \land C_i > 0.2 & \Rightarrow \text{contradiction} \end{cases}$$
 
 ### 5.3 Verdict
 
