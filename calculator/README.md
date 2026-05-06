@@ -48,3 +48,20 @@ Le calculateur est en **vanilla JS** — aucun framework. Pour modifier :
 
 - Code : AGPL-3.0
 - Documentation : CC-BY-SA-4.0
+
+
+## Déploiement automatique (GitHub Pages)
+
+Le calculateur se déploie automatiquement sur GitHub Pages à chaque push sur `main`.
+
+### Activation
+
+1. Va sur ton repo → `Settings` → `Pages`
+2. Source : `GitHub Actions`
+3. Le workflow `.github/workflows/deploy.yml` s'occupe du reste
+
+### URL de production
+
+```
+https://kariboo84.github.io/constrained_legitimacy_indice/
+```
