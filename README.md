@@ -5,17 +5,17 @@ Méta-manifeste pour un indice de légitimité contrainte.
 ## 📁 Structure du repo
 
 ```
-├── calculator/           # Calculateur web (GitHub Pages)
+├── [calculator/](/calculator/)                       # Calculateur web (GitHub Pages)
 │   ├── index.html
 │   ├── css/style.css
 │   ├── js/ilc-calculator.js
 │   └── examples/
-├── .github/workflows/    # Déploiement auto
+├── .github/workflows/                # Déploiement auto
 │   └── deploy.yml
-├── CHARTER.md           # Charte d'honnêteté
-├── LICENSE              # AGPL-3.0 (code)
-├── LICENSE-DOCS         # CC-BY-SA-4.0 (textes)
-├── Meta_Manifeste_ILC_v0.md
+├── [CHARTER.md](/CHARTER)           # Charte d'honnêteté
+├── LICENSE                          # AGPL-3.0 (code)
+├── LICENSE-DOCS                     # CC-BY-SA-4.0 (textes)
+├── [Meta_Manifeste_ILC_v0.md](/Meta_Manifeste_ILC_v0)
 └── README.md            # Ce fichier
 ```
 
