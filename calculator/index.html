@@ -11,10 +11,9 @@
     <header>
       <h1>🔧 ILC Calculator</h1>
       <div class="subtitle">Calculateur d'Indice de Légitimité Contrainte</div>
-      <div class="version">v0.1.0-alpha</div>
+      <div class="version">v0.1.1-alpha</div>
     </header>
 
-    <!-- SECTION : Choix de l'exemple -->
     <div class="section">
       <div class="section-title"><span class="icon">📚</span> Exemples pré-remplis</div>
       <div class="btn-group">
@@ -25,7 +24,6 @@
       </div>
     </div>
 
-    <!-- SECTION : Paramètres généraux -->
     <div class="section">
       <div class="section-title"><span class="icon">⚙️</span> Configuration</div>
 
@@ -47,7 +45,7 @@
       <div class="input-row">
         <div>
           <label for="Vc">Verrouillage Constitutionnel (Vc)</label>
-          <input type="number" id="Vc" step="0.01" min="0" max="1" value="0.75" placeholder="0.75">
+          <input type="number" id="Vc" step="0.01" min="0" max="1" value="0.75">
           <div class="help-text">0 = Constitution ouverte, 1 = totalement verrouillée</div>
         </div>
         <div>
@@ -60,7 +58,6 @@
       </div>
     </div>
 
-    <!-- SECTION : Variables ILC-ÉG -->
     <div id="panel-ilc-eg" class="section">
       <div class="section-title"><span class="icon">📐</span> Variables ILC-ÉG</div>
 
@@ -85,7 +82,6 @@
       <div id="explain-Ci" class="explain-box hidden"></div>
     </div>
 
-    <!-- SECTION : Variables ILC-LB (caché par défaut) -->
     <div id="panel-ilc-lb" class="section hidden">
       <div class="section-title"><span class="icon">📐</span> Variables ILC-LB</div>
 
@@ -98,7 +94,6 @@
       <div class="help-text">1 = intervention totale, 0 = aucune</div>
     </div>
 
-    <!-- SECTION : Variables ILC-UT (caché par défaut) -->
     <div id="panel-ilc-ut" class="section hidden">
       <div class="section-title"><span class="icon">📐</span> Variables ILC-UT</div>
 
@@ -115,12 +110,10 @@
       <div class="help-text">Coût supporté par l'individu le plus lésé</div>
     </div>
 
-    <!-- BOUTON CALCULER -->
     <div class="btn-group">
       <button class="btn" onclick="calculate()">🧮 Calculer l'ILC</button>
     </div>
 
-    <!-- SECTION : Résultats -->
     <div id="results" class="section hidden">
       <div class="section-title"><span class="icon">📊</span> Résultats</div>
 
@@ -158,7 +151,6 @@
 
   <script src="js/ilc-calculator.js"></script>
   <script>
-    // Affichage/masquage des panels selon la famille
     function onFamilyChange() {
       const fam = document.getElementById('family').value;
       ['ilc-eg', 'ilc-lb', 'ilc-ut'].forEach(f => {
@@ -166,10 +158,12 @@
       });
     }
 
-    // Chargement d'un exemple
     function loadExample(key) {
       const ex = ILCCalculator.examples[key];
-      if (!ex) return;
+      if (!ex) {
+        console.error('Exemple inconnu:', key);
+        return;
+      }
 
       document.getElementById('family').value = ex.family;
       onFamilyChange();
@@ -194,13 +188,16 @@
 
     function showExplain(id, text) {
       const el = document.getElementById('explain-' + id);
-      el.textContent = text;
-      el.classList.remove('hidden');
+      if (el) {
+        el.textContent = text;
+        el.classList.remove('hidden');
+      }
     }
 
     function hideExplains() {
       ['Rc', 'Sp', 'Rr', 'Ci'].forEach(id => {
-        document.getElementById('explain-' + id).classList.add('hidden');
+        const el = document.getElementById('explain-' + id);
+        if (el) el.classList.add('hidden');
       });
     }
 
@@ -218,27 +215,26 @@
       hideExplains();
     }
 
-    // Calcul principal
     function calculate() {
       const family = document.getElementById('family').value;
       const manifestBias = document.getElementById('manifestBias').value;
       const Vc = parseFloat(document.getElementById('Vc').value) || 0;
-      const l = parseInt(document.getElementById('l').value);
+      const l = parseInt(document.getElementById('l').value) || 1;
 
       let inputs = { manifestBias, Vc, l };
 
       if (family === 'ilc-eg') {
-        inputs.Rc = parseFloat(document.getElementById('Rc').value) || 0;
-        inputs.Sp = parseFloat(document.getElementById('Sp').value) || 0;
-        inputs.Rr = parseFloat(document.getElementById('Rr').value) || 0;
-        inputs.Ci = parseFloat(document.getElementById('Ci').value) || 0;
+        inputs.Rc = document.getElementById('Rc').value;
+        inputs.Sp = document.getElementById('Sp').value;
+        inputs.Rr = document.getElementById('Rr').value;
+        inputs.Ci = document.getElementById('Ci').value;
       } else if (family === 'ilc-lb') {
-        inputs.Ci = parseFloat(document.getElementById('Ci-lb').value) || 0;
-        inputs.De = parseFloat(document.getElementById('De').value) || 0;
+        inputs.Ci = document.getElementById('Ci-lb').value;
+        inputs.De = document.getElementById('De').value;
       } else if (family === 'ilc-ut') {
-        inputs.B = parseFloat(document.getElementById('B').value) || 0;
-        inputs.C = parseFloat(document.getElementById('C').value) || 0;
-        inputs.Cmax = parseFloat(document.getElementById('Cmax').value) || 0;
+        inputs.B = document.getElementById('B').value;
+        inputs.C = document.getElementById('C').value;
+        inputs.Cmax = document.getElementById('Cmax').value;
       }
 
       try {
@@ -246,6 +242,7 @@
         displayResults(result);
       } catch (e) {
         alert('Erreur de calcul : ' + e.message);
+        console.error(e);
       }
     }
 
@@ -267,7 +264,6 @@
       badge.className = 'verdict-badge ' + result.verdict;
       badge.textContent = result.verdict.toUpperCase();
 
-      // Détecteur de langue de bois
       const bsPanel = document.getElementById('bs-panel');
       if (!result.bs.valid) {
         let html = '<div class="bs-warning"><h4>⚠️ Détecteur de Langue de Bois — ' + 
@@ -282,11 +278,9 @@
                             result.bs.Id.toFixed(2) + ')</div>';
       }
 
-      // Scroll vers résultats
       resSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Init
     onFamilyChange();
   </script>
 </body>

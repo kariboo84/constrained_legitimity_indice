@@ -1,15 +1,17 @@
 /**
- * ILC Calculator v0.1.0
+ * ILC Calculator v0.1.1
  * Calculateur d'Indice de Légitimité Contrainte
  * Vanilla JS — aucune dépendance
  */
 
 const ILCCalculator = {
-  // Familles d'indices disponibles
   families: {
     'ilc-eg': {
       name: 'ILC-ÉG (Égalitarisme)',
-      formula: (Rc, Sp, Rr, Ci) => (Rc * Sp * Rr) / Ci,
+      formula: (Rc, Sp, Rr, Ci) => {
+        if (Ci === 0) return 0;
+        return (Rc * Sp * Rr) / Ci;
+      },
       thresholds: { reject: 0.10, major: 0.30, minor: 0.60, accept: 1.00 },
       labels: {
         reject: 'REJET — Déplacement de responsabilité structurelle',
@@ -20,7 +22,10 @@ const ILCCalculator = {
     },
     'ilc-lb': {
       name: 'ILC-LB (Liberté de marché)',
-      formula: (Ci, De) => 1 / (Ci * De),
+      formula: (Ci, De) => {
+        if (Ci === 0 || De === 0) return Infinity;
+        return 1 / (Ci * De);
+      },
       thresholds: { reject: 0.20, major: 0.50, minor: 1.00, accept: 5.00 },
       labels: {
         reject: 'REJET — Ingérence étatique excessive',
@@ -31,7 +36,10 @@ const ILCCalculator = {
     },
     'ilc-ut': {
       name: 'ILC-UT (Utilitarisme)',
-      formula: (B, C, Cmax) => (B - C) / Cmax,
+      formula: (B, C, Cmax) => {
+        if (Cmax === 0) return 0;
+        return (B - C) / Cmax;
+      },
       thresholds: { reject: 0, major: 1, minor: 5, accept: 10 },
       labels: {
         reject: 'REJET — Bilan net négatif',
@@ -42,7 +50,6 @@ const ILCCalculator = {
     }
   },
 
-  // Exemples pré-remplis
   examples: {
     'telephone-volant': {
       name: 'Téléphone au volant — Suspension 6 mois',
@@ -94,7 +101,6 @@ const ILCCalculator = {
     }
   },
 
-  // Détection de langue de bois
   detectBS(manifestBias, Rc, Sp, Rr, Ci) {
     let contradictions = 0;
     let total = 4;
@@ -117,18 +123,21 @@ const ILCCalculator = {
         contradictions++;
         messages.push('Contrainte individuelle > 30% du revenu — incompatible avec l'égalité des conditions.');
       }
+    } else if (manifestBias === 'libertarian') {
+      if (Ci > 0.2) {
+        contradictions++;
+        messages.push('Vous prônez la liberté mais la contrainte dépasse 20% du revenu.');
+      }
     }
 
     const Id = contradictions / total;
     return { Id, contradictions, total, messages, valid: Id <= 0.30 };
   },
 
-  // Calcul du filtre constitutionnel
   calcFc(l, Vc) {
     return (l * (1 - Vc)) + ((1 - l) * Vc);
   },
 
-  // Calcul principal
   calculate(familyKey, inputs) {
     const family = this.families[familyKey];
     if (!family) throw new Error('Famille inconnue');
@@ -136,24 +145,37 @@ const ILCCalculator = {
     let ilcBrut = 0;
 
     if (familyKey === 'ilc-eg') {
-      const { Rc, Sp, Rr, Ci } = inputs;
+      const Rc = parseFloat(inputs.Rc) || 0;
+      const Sp = parseFloat(inputs.Sp) || 0;
+      const Rr = parseFloat(inputs.Rr) || 0;
+      const Ci = parseFloat(inputs.Ci) || 0;
       ilcBrut = family.formula(Rc, Sp, Rr, Ci);
     } else if (familyKey === 'ilc-lb') {
-      const { Ci, De } = inputs;
+      const Ci = parseFloat(inputs.Ci) || 0;
+      const De = parseFloat(inputs.De) || 0;
       ilcBrut = family.formula(Ci, De);
     } else if (familyKey === 'ilc-ut') {
-      const { B, C, Cmax } = inputs;
+      const B = parseFloat(inputs.B) || 0;
+      const C = parseFloat(inputs.C) || 0;
+      const Cmax = parseFloat(inputs.Cmax) || 0;
       ilcBrut = family.formula(B, C, Cmax);
     }
 
-    // Filtre constitutionnel
-    const Fc = this.calcFc(inputs.l, inputs.Vc);
-    const ilcFinal = ilcBrut * Fc;
+    const Fc = this.calcFc(parseFloat(inputs.l), parseFloat(inputs.Vc));
+    let ilcFinal = ilcBrut * Fc;
 
-    // Détecteur de langue de bois
-    const bs = this.detectBS(inputs.manifestBias, inputs.Rc || 0, inputs.Sp || 0, inputs.Rr || 0, inputs.Ci || 0);
+    if (!isFinite(ilcFinal) || isNaN(ilcFinal)) {
+      ilcFinal = 0;
+    }
 
-    // Seuil
+    const bs = this.detectBS(
+      inputs.manifestBias,
+      parseFloat(inputs.Rc) || 0,
+      parseFloat(inputs.Sp) || 0,
+      parseFloat(inputs.Rr) || 0,
+      parseFloat(inputs.Ci) || 0
+    );
+
     let verdict = 'reject';
     if (ilcFinal >= family.thresholds.accept) verdict = 'accept';
     else if (ilcFinal >= family.thresholds.minor) verdict = 'minor';
@@ -171,7 +193,6 @@ const ILCCalculator = {
   }
 };
 
-// Export pour modules (si utilisé en Node) ou global (navigateur)
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = ILCCalculator;
 }
