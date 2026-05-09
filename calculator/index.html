@@ -11,7 +11,7 @@
     <header>
       <h1>🔧 ILC Calculator</h1>
       <div class="subtitle">Calculateur d'Indice de Légitimité Contrainte</div>
-      <div class="version">v0.1.1-alpha</div>
+      <div class="version">v0.2.0-alpha</div>
     </header>
 
     <div class="section">
@@ -58,6 +58,26 @@
       </div>
     </div>
 
+    <div class="section">
+      <div class="section-title"><span class="icon">🫀</span> Couche 0 — Test vitaliste (ILC-VI)</div>
+      <div class="help-text">Si un pilier vitaliste est déclenché, le calcul idéologique s'arrête : la décision est classée « illégitime vitalement ».</div>
+
+      <label><input type="checkbox" id="P1"> P1 — Mortalité prématurée documentée</label>
+      <label><input type="checkbox" id="P2"> P2 — Blessure, maladie ou handicap évitable</label>
+      <label><input type="checkbox" id="P3"> P3 — Humiliation systémique</label>
+
+      <div class="input-row">
+        <div>
+          <label><input type="checkbox" id="semanticDictionaryComplete"> Dictionnaire de Termes Critiques complet</label>
+          <div class="help-text">PSC/DTC : les termes critiques sont définis opérationnellement.</div>
+        </div>
+        <div>
+          <label><input type="checkbox" id="dataLayerComplete"> Data Layer complet</label>
+          <div class="help-text">Chaque variable a une valeur, une source, une URL/référence, une date et une méthodologie.</div>
+        </div>
+      </div>
+    </div>
+
     <div id="panel-ilc-eg" class="section">
       <div class="section-title"><span class="icon">📐</span> Variables ILC-ÉG</div>
 
@@ -90,8 +110,8 @@
       <div class="help-text">Contrainte fiscale et réglementaire sur l'individu</div>
 
       <label for="De">Degré d'ingérence étatique (De)</label>
-      <input type="number" id="De" step="any" min="0" placeholder="ex: 2.5">
-      <div class="help-text">1 = intervention totale, 0 = aucune</div>
+      <input type="number" id="De" step="any" min="0" max="1" placeholder="ex: 0.40">
+      <div class="help-text">0 = aucune ingérence, 1 = intervention totale. Formule v1 : (1 - Ci) × (1 - De)</div>
     </div>
 
     <div id="panel-ilc-ut" class="section hidden">
@@ -170,6 +190,11 @@
       document.getElementById('manifestBias').value = ex.manifestBias;
       document.getElementById('Vc').value = ex.Vc;
       document.getElementById('l').value = ex.l;
+      document.getElementById('P1').checked = Boolean(ex.P1);
+      document.getElementById('P2').checked = Boolean(ex.P2);
+      document.getElementById('P3').checked = Boolean(ex.P3);
+      document.getElementById('semanticDictionaryComplete').checked = false;
+      document.getElementById('dataLayerComplete').checked = false;
 
       if (ex.family === 'ilc-eg') {
         document.getElementById('Rc').value = ex.Rc;
@@ -211,6 +236,11 @@
       document.getElementById('B').value = '';
       document.getElementById('C').value = '';
       document.getElementById('Cmax').value = '';
+      document.getElementById('P1').checked = false;
+      document.getElementById('P2').checked = false;
+      document.getElementById('P3').checked = false;
+      document.getElementById('semanticDictionaryComplete').checked = false;
+      document.getElementById('dataLayerComplete').checked = false;
       document.getElementById('results').classList.add('hidden');
       hideExplains();
     }
@@ -219,9 +249,14 @@
       const family = document.getElementById('family').value;
       const manifestBias = document.getElementById('manifestBias').value;
       const Vc = parseFloat(document.getElementById('Vc').value) || 0;
-      const l = parseInt(document.getElementById('l').value) || 1;
+      const l = parseInt(document.getElementById('l').value, 10);
+      const P1 = document.getElementById('P1').checked;
+      const P2 = document.getElementById('P2').checked;
+      const P3 = document.getElementById('P3').checked;
+      const semanticDictionaryComplete = document.getElementById('semanticDictionaryComplete').checked;
+      const dataLayerComplete = document.getElementById('dataLayerComplete').checked;
 
-      let inputs = { manifestBias, Vc, l };
+      let inputs = { manifestBias, Vc, l, P1, P2, P3, semanticDictionaryComplete, dataLayerComplete };
 
       if (family === 'ilc-eg') {
         inputs.Rc = document.getElementById('Rc').value;
@@ -265,16 +300,21 @@
       badge.textContent = result.verdict.toUpperCase();
 
       const bsPanel = document.getElementById('bs-panel');
-      if (!result.bs.valid) {
-        let html = '<div class="bs-warning"><h4>⚠️ Détecteur de Langue de Bois — ' + 
-                   Math.round(result.bs.Id * 100) + '% de contradictions</h4><ul>';
+      if (!result.vitalist.valid) {
+        bsPanel.innerHTML = '<div class="bs-warning"><h4>🫀 Couche vitaliste</h4><p>' + result.vitalist.label + '</p></div>';
+      } else if (!result.bs.valid) {
+        let html = '<div class="bs-warning"><h4>⚠️ Détecteur de Langue de Bois — Id = ' +
+                   result.bs.Id.toFixed(2) + '</h4>' +
+                   '<p>Id_sem=' + result.bs.Id_sem.toFixed(2) +
+                   ' · Id_var=' + result.bs.Id_var.toFixed(2) +
+                   ' · Id_op=' + result.bs.Id_op.toFixed(2) + '</p><ul>';
         result.bs.messages.forEach(msg => {
           html += '<li>' + msg + '</li>';
         });
         html += '</ul></div>';
         bsPanel.innerHTML = html;
       } else {
-        bsPanel.innerHTML = '<div class="bs-ok">✅ Cohérence Manifeste/Variables vérifiée (Id = ' + 
+        bsPanel.innerHTML = '<div class="bs-ok">✅ Cohérence Manifeste/Variables vérifiée (Id = ' +
                             result.bs.Id.toFixed(2) + ')</div>';
       }
 

@@ -15,9 +15,11 @@ python -m http.server 8000
 
 ## Fonctionnalités
 
+- **Couche 0 vitaliste (ILC-VI)** : arrêt immédiat si mortalité, mutilation ou humiliation systémique est déclenchée
 - **3 familles d'indices** : ILC-ÉG (égalitarisme), ILC-LB (liberté de marché), ILC-UT (utilitarisme)
 - **3 exemples pré-remplis** : téléphone au volant, taxe Coca-Cola, radiation RSA
-- **Détecteur de Langue de Bois** : vérifie la cohérence entre le Manifeste de Valeurs et les variables saisies
+- **Détecteur de Langue de Bois v1 simplifié** : Id_sem, Id_var et Id_op
+- **Data Layer** : indicateur de complétude des sources
 - **Filtre Constitutionnel** : prend en compte le verrouillage de la Constitution
 - **Calcul en temps réel** : résultat immédiat avec verdict coloré
 
@@ -29,7 +31,8 @@ calculator/
 ├── css/
 │   └── style.css           # Styles (thème sombre)
 ├── js/
-│   └── ilc-calculator.js   # Moteur de calcul
+│   ├── ilc-calculator.js       # Moteur de calcul
+│   └── ilc-calculator.test.js  # Tests Node.js
 └── examples/
     ├── telephone-volant.json
     ├── taxe-coca.json
@@ -41,8 +44,16 @@ calculator/
 Le calculateur est en **vanilla JS** — aucun framework. Pour modifier :
 
 1. Les formules : éditez `js/ilc-calculator.js` (objet `ILCCalculator`)
-2. Les styles : éditez `css/style.css`
-3. Les exemples : ajoutez des entrées dans `ILCCalculator.examples`
+2. Les tests : éditez `js/ilc-calculator.test.js`
+3. Les styles : éditez `css/style.css`
+4. Les exemples : ajoutez des entrées dans `ILCCalculator.examples`
+
+Vérifications :
+
+```bash
+node --check calculator/js/ilc-calculator.js
+node calculator/js/ilc-calculator.test.js
+```
 
 ## Licence
 

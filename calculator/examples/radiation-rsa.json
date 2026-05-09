@@ -12,5 +12,8 @@
   "Vc": 0.75,
   "l": 1,
   "manifestBias": "egalitarian",
-  "notes": "97% des radiés ne fraudent pas (DARES 2025). 28% basculent au RSA après radiation."
+  "notes": "97% des radiés ne fraudent pas (DARES 2025). 28% basculent au RSA après radiation.",
+  "P1": false,
+  "P2": false,
+  "P3": true
 }

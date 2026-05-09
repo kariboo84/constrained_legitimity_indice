@@ -184,7 +184,9 @@ input::placeholder {
   margin: 0.5rem 0;
 }
 
-.result-value.reject { color: var(--danger); }
+.result-value.reject,
+.result-value.invalid,
+.result-value.vitalist { color: var(--danger); }
 .result-value.major { color: var(--warning); }
 .result-value.minor { color: var(--info); }
 .result-value.accept { color: var(--success); }
@@ -198,10 +200,17 @@ input::placeholder {
   margin-bottom: 1rem;
 }
 
-.verdict-badge.reject { background: rgba(248, 81, 73, 0.15); color: var(--danger); }
+.verdict-badge.reject,
+.verdict-badge.invalid,
+.verdict-badge.vitalist { background: rgba(248, 81, 73, 0.15); color: var(--danger); }
 .verdict-badge.major { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
 .verdict-badge.minor { background: rgba(163, 113, 247, 0.15); color: var(--info); }
 .verdict-badge.accept { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+
+input[type="checkbox"] {
+  margin-right: 0.45rem;
+  accent-color: var(--accent);
+}
 
 .detail-row {
   display: flex;

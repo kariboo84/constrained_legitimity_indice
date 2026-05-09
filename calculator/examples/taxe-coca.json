@@ -12,5 +12,8 @@
   "Vc": 0.75,
   "l": 1,
   "manifestBias": "egalitarian",
-  "notes": "Loi parfaite sur le fond mais processus verrouillé (Sp proche de 0)"
+  "notes": "Loi parfaite sur le fond mais processus verrouillé (Sp proche de 0)",
+  "P1": false,
+  "P2": false,
+  "P3": false
 }

@@ -3,6 +3,8 @@ name: Deploy ILC Calculator to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -24,12 +26,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Check JavaScript syntax
+        run: node --check calculator/js/ilc-calculator.js
+
+      - name: Run calculator tests
+        run: node calculator/js/ilc-calculator.test.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./calculator
 
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

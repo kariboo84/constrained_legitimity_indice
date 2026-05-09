@@ -12,5 +12,8 @@
   "Vc": 0.75,
   "l": 1,
   "manifestBias": "egalitarian",
-  "notes": "Loi conforme à la Constitution 1958 (verrouillée). Réciprocité nulle."
+  "notes": "Loi conforme à la Constitution 1958 (verrouillée). Réciprocité nulle.",
+  "P1": false,
+  "P2": false,
+  "P3": false
 }
