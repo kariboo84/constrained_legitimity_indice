@@ -20,6 +20,7 @@ Ce document propose une refonte du cadre épistémique et éthique des Indices d
 Cette version introduit :
 - Une **couche de base vitaliste (ILC-VI)** qui s'applique avant toute famille idéologique.
 - Un **principe de précédence biophysique** : les limites physiques fixent le cadre non négociable ; l'ILC juge ensuite la répartition légitime de la contrainte.
+- Une **doctrine du score conditionnel** : l'ILC est d'abord un protocole d'audit ; le score est une sortie possible, non obligatoire.
 - Un **protocole sémantique contraint** : chaque terme critique doit être défini par une source data ou une définition opérationnelle explicite.
 - Un **data layer traçable** : tout chiffre doit pointer vers une source mesurable, officielle ou alternative, dont la méthodologie est publique.
 - Une **clause d'action** : le score est un révélateur, jamais un justificateur. Son usage politique est encadré.
@@ -141,6 +142,44 @@ Le détail du protocole est documenté dans `docs/biophysical-precedence-and-tra
 
 ---
 
+## 1ter. Doctrine du score conditionnel
+
+### 1ter.1 Principe
+
+L'ILC ne doit pas être confondu avec un score global. Il est d'abord un protocole d'audit de la contrainte publique. Le score est une sortie possible du protocole, autorisée seulement lorsque les variables sont définies, sourcées, pondérées et contestables.
+
+> **Postulat du score conditionnel** : *L'ILC n'a pas pour vocation de tout réduire à un nombre. Il a pour vocation de dire quand un nombre est légitime, et quand il ne l'est pas.*
+
+Conséquence : un score sans dossier est suspect ; un dossier sans score peut être valide.
+
+### 1ter.2 Typologie des sorties
+
+| Sortie | Définition | Usage |
+|--------|------------|-------|
+| `diagnostic` | Cartographie qualitative ou structurée sans score | Sujet complexe, incertain ou multidimensionnel |
+| `simple_metric` | Score local sur une variable claire | Contrainte nette, ratio d'asymétrie, compensation, participation |
+| `composite_score` | Agrégat de plusieurs dimensions | Autorisé seulement avec sources, pondérations et incertitudes publiques |
+| `suspended_score` | Score temporairement non publiable | Data Layer insuffisant, ambiguïté sémantique, pondérations absentes, risque B3-B5 non traité |
+| `hard_block` | Score non pertinent car verrou supérieur déclenché | ILC-VI négatif, B4/B5 non justifié, atteinte non négociable |
+
+### 1ter.3 Règle de publiabilité
+
+Un score ILC n'est publiable que si :
+
+- l'objet évalué est stabilisé ;
+- les variables sont définies opérationnellement ;
+- chaque chiffre est relié à une source et une méthodologie ;
+- les pondérations morales sont explicites ;
+- les verrous vitalistes et biophysiques n'interdisent pas le calcul ;
+- les dimensions non calculables sont déclarées ;
+- un tiers peut reproduire ou contester le résultat.
+
+En cas d'échec, la sortie correcte n'est pas un score approximatif, mais `diagnostic`, `suspended_score` ou `hard_block`.
+
+Le détail du protocole est documenté dans `docs/protocol-before-score.md`.
+
+---
+
 ## 2. Protocole Sémantique Contrainte (PSC)
 
 ### 2.1 Problème identifié
@@ -199,7 +238,12 @@ Avant tout calcul numérique, le DLB vérifie :
 ÉTAPE 1bis : Précédence biophysique
     ↓ Si B4/B5 non justifié → ARRÊT ou SCORE SUSPENDU
     ↓ Si B3 → charge de la preuve inversée
-    ↓ Sinon → ÉTAPE 2
+    ↓ Sinon → ÉTAPE 1ter
+
+ÉTAPE 1ter : Doctrine du score conditionnel
+    ↓ Si données/pondérations/verrous insuffisants → DIAGNOSTIC ou SCORE SUSPENDU
+    ↓ Si métrique simple publiable → SIMPLE_METRIC
+    ↓ Si score composite justifié → ÉTAPE 2
 
 ÉTAPE 2 : Manifeste de Valeurs + DTC + DLB sémantique
     ↓ Si Id > 0,30 → ARRÊT (Langue de bois)
@@ -431,6 +475,7 @@ Tout score peut être contesté par un fork. Si un citoyen produit un calcul alt
 ### v1.0.0 — Stable (prévu)
 - Intégration du ILC-VI comme couche de base obligatoire.
 - Intégration du principe de précédence biophysique et de la justice de transition.
+- Intégration de la doctrine du score conditionnel : protocole avant score, typologie des sorties, scores suspendables.
 - Publication du protocole sémantique contraint (PSC).
 - Calculatrice open-source avec Data Layer traçable.
 - Test sur 10 lois françaises récentes avec publication des deux versions (experte + citoyenne).
