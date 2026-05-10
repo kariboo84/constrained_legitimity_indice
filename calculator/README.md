@@ -23,6 +23,8 @@ python -m http.server 8000
 - **Filtre Constitutionnel** : prend en compte le verrouillage de la Constitution
 - **Calcul en temps réel** : résultat immédiat avec verdict coloré
 
+Note : le calculateur actuel illustre surtout le mode `simple_metric` / prototype. Le cadre complet distingue désormais `diagnostic`, `simple_metric`, `composite_score`, `suspended_score` et `hard_block` ; une loi complexe ne doit pas être réduite à un score global sans Data Layer publiable.
+
 ## Structure
 
 ```

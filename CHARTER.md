@@ -38,6 +38,12 @@ cacher le biais derrière des chiffres.
    statut biophysique avant tout score. Une donnée manquante sur une
    fonction vitale ne vaut jamais preuve d'absence de risque.
 
+6. **Score conditionnel**
+   Aucun score global ne peut être publié comme résultat ILC si les
+   variables, sources, pondérations, verrous et incertitudes ne sont pas
+   explicités. Dans ce cas, la sortie honnête est un diagnostic, un score
+   suspendu ou un blocage, pas un nombre approximatif.
+
 ## Conséquence du non-respect
 
 Une entité qui viole ces règles reste légalement libre de le faire

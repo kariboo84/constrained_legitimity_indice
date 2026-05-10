@@ -7,7 +7,7 @@ Méta-manifeste et prototype de calculateur pour un **Indice de Légitimité Con
 
 ## En une phrase
 
-Un ILC est un outil anti-langue-de-bois : il force chaque score à exposer son biais moral, ses sources, ses définitions et ses zones d'incalculabilité.
+Un ILC est un outil anti-langue-de-bois : il force chaque décision évaluée à exposer son biais moral, ses sources, ses définitions, ses zones d'incalculabilité et les conditions dans lesquelles un score est — ou n'est pas — publiable.
 
 ## Ce que contient le projet
 
@@ -16,6 +16,7 @@ Un ILC est un outil anti-langue-de-bois : il force chaque score à exposer son b
 - **Calculateur web** : prototype vanilla JS publié sur GitHub Pages.
 - **Charte d'honnêteté** : règles minimales pour les forks et réutilisations.
 - **Précédence biophysique** : formalisation des limites physiques comme cadre non négociable, et de l'ILC comme justice de répartition de la contrainte.
+- **Doctrine du score conditionnel** : distinction entre ILC-protocole, métriques simples, scores composites et scores suspendus.
 
 ## Liens
 
@@ -35,9 +36,10 @@ Le calculateur suit progressivement cette version, notamment :
 
 1. **Couche 0 vitaliste (ILC-VI)** : mortalité, mutilation, humiliation systémique.
 2. **Précédence biophysique** : les limites physiques fixent le cadre non négociable ; l'ILC juge la répartition légitime de la contrainte dans ce cadre.
-3. **Familles d'indices** : égalitarisme, liberté de marché, utilitarisme.
-4. **Détecteur de Langue de Bois (DLB)** : cohérence sémantique, variables, opacité.
-5. **Data Layer** : obligation de traçabilité des sources.
+3. **Doctrine du score conditionnel** : le score est une sortie possible du protocole, jamais une obligation.
+4. **Familles d'indices** : égalitarisme, liberté de marché, utilitarisme.
+5. **Détecteur de Langue de Bois (DLB)** : cohérence sémantique, variables, opacité.
+6. **Data Layer** : obligation de traçabilité des sources.
 
 ## Structure du repo
 
@@ -49,8 +51,10 @@ Le calculateur suit progressivement cette version, notamment :
 │   ├── js/ilc-calculator.test.js   # Tests Node.js
 │   └── examples/                   # Exemples JSON
 ├── docs/
-│   └── biophysical-precedence-and-transition-justice.md
-│                                      # Limites physiques et justice de transition
+│   ├── biophysical-precedence-and-transition-justice.md
+│   │                                  # Limites physiques et justice de transition
+│   └── protocol-before-score.md
+│                                      # Doctrine du score conditionnel
 ├── .github/workflows/deploy.yml    # Déploiement GitHub Pages + vérifications JS
 ├── CHARTER.md                      # Charte d'honnêteté
 ├── LICENSE                         # AGPL-3.0 (code)
@@ -91,6 +95,7 @@ Le manifeste v1 est plus avancé que le calculateur. Le chantier principal est l
 - ILC-VI complet ;
 - Dictionnaire de Termes Critiques ;
 - Data Layer traçable par variable ;
+- doctrine du score conditionnel : `diagnostic`, `simple_metric`, `composite_score`, `suspended_score`, `hard_block` ;
 - export version experte / version citoyenne ;
 - tests de cohérence plus complets.
 

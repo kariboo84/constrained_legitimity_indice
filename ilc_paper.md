@@ -71,6 +71,46 @@ Cette séparation empêche de confondre une contrainte physiquement nécessaire 
 
 ---
 
+## 1ter. Score conditionnel
+
+On distingue le protocole d'évaluation $P_{ILC}$ de la sortie numérique $S_{ILC}$.
+
+$$P_{ILC}(d) \not\Rightarrow S_{ILC}(d)$$
+
+Autrement dit, toute décision peut faire l'objet d'un protocole ILC, mais toute décision n'autorise pas un score.
+
+La fonction de sortie est :
+
+$$O(d) \in \{diagnostic, simple\_metric, composite\_score, suspended\_score, hard\_block\}$$
+
+avec :
+
+- $diagnostic$ : cartographie sans score ;
+- $simple\_metric$ : métrique locale sur une variable observable ;
+- $composite\_score$ : agrégat de plusieurs dimensions ;
+- $suspended\_score$ : score non publiable faute de conditions suffisantes ;
+- $hard\_block$ : score non pertinent car verrou supérieur déclenché.
+
+Un score composite est publiable seulement si :
+
+$$Publish(S_{ILC}) = V \land D \land W \land R \land C$$
+
+où :
+
+- $V$ : variables définies opérationnellement ;
+- $D$ : Data Layer traçable ;
+- $W$ : pondérations explicites ;
+- $R$ : résultat reproductible et contestable ;
+- $C$ : absence de verrou vitaliste ou biophysique non résolu.
+
+Si l'une de ces conditions échoue :
+
+$$\neg Publish(S_{ILC}) \Rightarrow O(d) \in \{diagnostic, suspended\_score, hard\_block\}$$
+
+Cette règle interdit la fausse précision : un score non publiable doit être suspendu, non approximé.
+
+---
+
 ## 2. Famille ILC-ÉG (Égalitarisme)
 
 ### 2.1 Formule principale
