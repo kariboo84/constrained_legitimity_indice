@@ -15,6 +15,7 @@ Un ILC est un outil anti-langue-de-bois : il force chaque score à exposer son b
 - **Spécification mathématique** : variables, familles d'indices et seuils.
 - **Calculateur web** : prototype vanilla JS publié sur GitHub Pages.
 - **Charte d'honnêteté** : règles minimales pour les forks et réutilisations.
+- **Précédence biophysique** : formalisation des limites physiques comme cadre non négociable, et de l'ILC comme justice de répartition de la contrainte.
 
 ## Liens
 
@@ -33,9 +34,10 @@ Meta_Manifeste_ILC_v0.md
 Le calculateur suit progressivement cette version, notamment :
 
 1. **Couche 0 vitaliste (ILC-VI)** : mortalité, mutilation, humiliation systémique.
-2. **Familles d'indices** : égalitarisme, liberté de marché, utilitarisme.
-3. **Détecteur de Langue de Bois (DLB)** : cohérence sémantique, variables, opacité.
-4. **Data Layer** : obligation de traçabilité des sources.
+2. **Précédence biophysique** : les limites physiques fixent le cadre non négociable ; l'ILC juge la répartition légitime de la contrainte dans ce cadre.
+3. **Familles d'indices** : égalitarisme, liberté de marché, utilitarisme.
+4. **Détecteur de Langue de Bois (DLB)** : cohérence sémantique, variables, opacité.
+5. **Data Layer** : obligation de traçabilité des sources.
 
 ## Structure du repo
 
@@ -46,6 +48,9 @@ Le calculateur suit progressivement cette version, notamment :
 │   ├── js/ilc-calculator.js        # Moteur de calcul
 │   ├── js/ilc-calculator.test.js   # Tests Node.js
 │   └── examples/                   # Exemples JSON
+├── docs/
+│   └── biophysical-precedence-and-transition-justice.md
+│                                      # Limites physiques et justice de transition
 ├── .github/workflows/deploy.yml    # Déploiement GitHub Pages + vérifications JS
 ├── CHARTER.md                      # Charte d'honnêteté
 ├── LICENSE                         # AGPL-3.0 (code)

@@ -30,7 +30,13 @@ cacher le biais derrière des chiffres.
 4. **Zone d'Incalculabilité respectée**
    Ce qui est déclaré hors champ dans le méta-manifeste (souffrance
    psychique, dignité bafouée) ne peut être converti en variable
-   chiffrée sans mention explicite de la travestissement.
+   chiffrée sans mention explicite du travestissement.
+
+5. **Précédence biophysique déclarée**
+   Toute évaluation qui touche l'eau, la santé, les sols, la biodiversité,
+   l'énergie, le climat ou des ressources critiques doit déclarer son
+   statut biophysique avant tout score. Une donnée manquante sur une
+   fonction vitale ne vaut jamais preuve d'absence de risque.
 
 ## Conséquence du non-respect
 

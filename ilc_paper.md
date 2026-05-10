@@ -32,6 +32,45 @@ où :
 
 ---
 
+## 1bis. Précédence biophysique
+
+Soit $\mathcal{B}$ l'ensemble des contraintes biophysiques pertinentes pour une décision :
+
+$$\mathcal{B} = \{\text{eau}, \text{santé}, \text{sols}, \text{biodiversité}, \text{énergie}, \text{climat}, \text{ressources critiques}\}$$
+
+On définit une fonction de gravité :
+
+$$G_b(d) \in \{B0, B1, B2, B3, B4, B5\}$$
+
+avec :
+
+- $B0$ : aucun signal biophysique significatif ;
+- $B1$ : externalité locale réversible ;
+- $B2$ : dégradation cumulative ;
+- $B3$ : atteinte à une fonction vitale ;
+- $B4$ : risque systémique ou irréversible ;
+- $B5$ : auto-destruction systémique.
+
+La règle de précédence est :
+
+$$G_b(d) \geq B3 \Rightarrow \text{charge de la preuve inversée}$$
+
+$$G_b(d) \geq B4 \land \neg \text{urgence\_supérieure\_bornée}(d) \Rightarrow \text{score suspendu}$$
+
+La légitimité complète distingue nécessité physique et justice sociale :
+
+$$L(d) = (N_b(d), J_t(d), ILC_i(d))$$
+
+où :
+
+- $N_b(d)$ : nécessité ou contrainte biophysique ;
+- $J_t(d)$ : justice de transition, c'est-à-dire répartition de la contrainte selon responsabilité, capacité contributive, vulnérabilité, alternatives et participation ;
+- $ILC_i(d)$ : score de la famille morale choisie, calculable seulement si les couches précédentes ne suspendent pas le score.
+
+Cette séparation empêche de confondre une contrainte physiquement nécessaire avec des modalités socialement légitimes.
+
+---
+
 ## 2. Famille ILC-ÉG (Égalitarisme)
 
 ### 2.1 Formule principale

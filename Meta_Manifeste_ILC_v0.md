@@ -19,6 +19,7 @@ Ce document propose une refonte du cadre épistémique et éthique des Indices d
 
 Cette version introduit :
 - Une **couche de base vitaliste (ILC-VI)** qui s'applique avant toute famille idéologique.
+- Un **principe de précédence biophysique** : les limites physiques fixent le cadre non négociable ; l'ILC juge ensuite la répartition légitime de la contrainte.
 - Un **protocole sémantique contraint** : chaque terme critique doit être défini par une source data ou une définition opérationnelle explicite.
 - Un **data layer traçable** : tout chiffre doit pointer vers une source mesurable, officielle ou alternative, dont la méthodologie est publique.
 - Une **clause d'action** : le score est un révélateur, jamais un justificateur. Son usage politique est encadré.
@@ -70,6 +71,73 @@ SINON :
 - **Réforme des retraites** (si espérance de vie des 5% les plus pauvres chute en conséquence) → P1 déclenché → ILC-VI = 0.
 
 > **Note** : Le fardeau de la preuve incombe au promoteur de la loi. S'il ne fournit pas les données prouvant l'absence d'effet vitaliste, le test est considéré comme échoué par défaut (principe de précaution appliqué à la légitimité).
+
+---
+
+## 1bis. Principe de précédence biophysique
+
+### 1bis.1 Principe
+
+Le pluralisme moral n'autorise pas à traiter les conditions matérielles de vie comme de simples préférences politiques. Eau potable, santé corporelle, sols fertiles, biodiversité fonctionnelle, énergie disponible, ressources critiques et stabilité écosystémique sont des conditions de possibilité de la décision collective elle-même.
+
+> **Postulat de précédence biophysique** : *Le réel physique fixe le cadre non négociable ; l'ILC juge la manière dont la contrainte nécessaire est décidée, répartie, accompagnée et rendue contestable.*
+
+Autrement dit : les limites biophysiques décident du cadre du « quoi préserver » ; l'ILC juge le « comment », le « sur qui » et le « avec quelles protections ».
+
+### 1bis.2 Séparation entre nécessité et imputation
+
+Une contrainte peut être physiquement nécessaire tout en étant socialement illégitime dans sa répartition.
+
+Exemples :
+- Interdire une substance toxique peut être nécessaire ; faire porter tout le coût aux travailleurs ou producteurs dépendants de cette substance peut être illégitime.
+- Réduire un prélèvement d'eau peut être nécessaire ; protéger les plus gros préleveurs et pénaliser les plus vulnérables peut être illégitime.
+- Réduire les émissions peut être nécessaire ; taxer les pauvres plus durement que les gros émetteurs peut être illégitime.
+
+Règle : l'ILC doit distinguer l'objectif matériel nécessaire des modalités sociales de la contrainte.
+
+### 1bis.3 Échelle de gravité biophysique
+
+| Niveau | Nom | Définition | Effet ILC |
+|--------|-----|------------|-----------|
+| **B0** | Aucun signal significatif | Pas d'effet documenté sur santé, eau, sols, biodiversité, énergie, climat ou ressources critiques | Évaluation ordinaire |
+| **B1** | Externalité locale réversible | Nuisance limitée, compensable et surveillée | Compensation et suivi obligatoires |
+| **B2** | Dégradation cumulative | Pollution répétée, pression hydrique, artificialisation, baisse de fertilité, atteinte cumulative | Présomption de révision ; alternatives et proportionnalité obligatoires |
+| **B3** | Atteinte à fonction vitale | Eau potable, alimentation, santé, pollinisation, sols ou énergie | Charge de la preuve inversée ; verrou de précaution fort |
+| **B4** | Risque systémique ou irréversible | Effondrement écosystémique, contamination durable, rupture hydrique, destruction de biodiversité fonctionnelle | Arrêt par défaut, sauf urgence supérieure temporaire et plan de sortie |
+| **B5** | Auto-destruction systémique | La mesure renforce un modèle qui détruit ses propres bases matérielles | Illégitimité structurelle ; score ordinaire suspendu |
+
+À partir de **B3**, la charge de la preuve est inversée : ce n'est plus aux exposés ou aux générations futures de démontrer le danger absolu, mais au promoteur de prouver que la fonction vitale n'est pas dégradée et que les alternatives ont été étudiées.
+
+### 1bis.4 Matrice biophysique / sociale
+
+| | Socialement juste | Socialement injuste |
+|---|---|---|
+| **Physiquement nécessaire** | Transition légitime | Objectif légitime, modalités illégitimes |
+| **Physiquement non nécessaire ou destructeur** | Contrainte faible ou bureaucratique, à justifier | Illégitimité structurelle |
+
+Cette matrice empêche deux erreurs symétriques :
+1. justifier une destruction matérielle par un bénéfice économique ou procédural ;
+2. imposer une transition physiquement nécessaire de manière punitive aux groupes les moins responsables ou les moins puissants.
+
+### 1bis.5 Règle Data Layer
+
+Toute évaluation touchant l'eau, la santé, les sols, la biodiversité, l'énergie, le climat ou des ressources critiques doit publier un bloc minimal :
+
+```yaml
+biophysical_layer:
+  boundary_type: [water, soil, biodiversity, human_health, energy, climate, critical_resources]
+  severity: B0 | B1 | B2 | B3 | B4 | B5
+  reversibility: reversible | cumulative | irreversible | unknown
+  timescale: immediate | short_term | medium_term | generational
+  affected_entities:
+    human_groups: []
+    non_human_entities: []
+    future_generations: true | false
+  burden_of_proof: normal | inverted
+  result: pass | warning | hard_block
+```
+
+Le détail du protocole est documenté dans `docs/biophysical-precedence-and-transition-justice.md`.
 
 ---
 
@@ -126,7 +194,12 @@ Avant tout calcul numérique, le DLB vérifie :
 ```
 ÉTAPE 1 : ILC-VI (Couche 0)
     ↓ Si = 0 → ARRÊT
-    ↓ Si = 1 → ÉTAPE 2
+    ↓ Si = 1 → ÉTAPE 1bis
+
+ÉTAPE 1bis : Précédence biophysique
+    ↓ Si B4/B5 non justifié → ARRÊT ou SCORE SUSPENDU
+    ↓ Si B3 → charge de la preuve inversée
+    ↓ Sinon → ÉTAPE 2
 
 ÉTAPE 2 : Manifeste de Valeurs + DTC + DLB sémantique
     ↓ Si Id > 0,30 → ARRÊT (Langue de bois)
@@ -357,6 +430,7 @@ Tout score peut être contesté par un fork. Si un citoyen produit un calcul alt
 
 ### v1.0.0 — Stable (prévu)
 - Intégration du ILC-VI comme couche de base obligatoire.
+- Intégration du principe de précédence biophysique et de la justice de transition.
 - Publication du protocole sémantique contraint (PSC).
 - Calculatrice open-source avec Data Layer traçable.
 - Test sur 10 lois françaises récentes avec publication des deux versions (experte + citoyenne).
